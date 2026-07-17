@@ -15,6 +15,6 @@ if re.fullmatch(pattern, admin):
         else:
             print("\033[31m ✖ Mot de Passe invalide \033[0m")
     else:
-        pass
+        print("\033[31m ✖ Non-trouvé. \033[0m")
 else:
-    pass
+    print("\033[31m ✖ Format invalide. Format correct : \033[1m ABC-123-def \033[0m \033[0m")
