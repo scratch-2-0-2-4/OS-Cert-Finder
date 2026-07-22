@@ -75,3 +75,6 @@ cd OS-Cert-Center
 git pull origin main
 ```
 
+## Utilisation (mobile) :
+
+Allez [https://colab.research.google.com/github/Scratch-OS-X/](ici).
