@@ -19,8 +19,5 @@ if re.fullmatch(r"^[A-Z]{3}-\d{3}-[a-z]{3}$", Certificat):
 elif Certificat == "ADMIN" :
   print("ADMIN Mode")
   ADMIN = input("Administration >>> ")
-elif Certificat == "help" :
-  print("Commandes : ")
-  print("• Recherche de certificats")
 else:
     print("\033[31m ✖ Format invalide. Format correct : \033[1m ABC-123-def \033[0m \033[0m")
