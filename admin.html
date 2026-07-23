@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Certificats</h1>
+            <ul class="nav-links">
+                <li><a href="index.html">Recherche</a></li>
+                <li><a href="certificates.html">Mes Certificats</a></li>
+                <li><a href="admin.html" class="active">Administration</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="admin-section">
+            <h2>Panneau d'Administration</h2>
+            
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="add">Ajouter un Certificat</button>
+                <button class="tab-btn" data-tab="manage">Gérer les Certificats</button>
+            </div>
+
+            <!-- Tab: Ajouter un certificat -->
+            <div id="add-tab" class="tab-content active">
+                <h3>Ajouter un Nouveau Certificat</h3>
+                <form id="addCertificateForm" class="form">
+                    <div class="form-group">
+                        <label for="certNumero">Numéro du certificat :</label>
+                        <input type="text" id="certNumero" class="input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="certNom">Nom/Titre :</label>
+                        <input type="text" id="certNom" class="input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="certEmission">Date d'émission :</label>
+                        <input type="date" id="certEmission" class="input">
+                    </div>
+                    <div class="form-group">
+                        <label for="certExpiration">Date d'expiration :</label>
+                        <input type="date" id="certExpiration" class="input">
+                    </div>
+                    <div class="form-group">
+                        <label for="certDescription">Description :</label>
+                        <textarea id="certDescription" class="input" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter le Certificat</button>
+                </form>
+            </div>
+
+            <!-- Tab: Gérer les certificats -->
+            <div id="manage-tab" class="tab-content">
+                <h3>Gérer les Certificats</h3>
+                <div id="manageCertificatesList" class="certificates-list">
+                    <p class="empty-state">Aucun certificat à gérer.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Gestionnaire de Certificats. Tous droits réservés.</p>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Gestion des onglets
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabName = this.dataset.tab;
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                
+                document.getElementById(tabName + '-tab').classList.add('active');
+                this.classList.add('active');
+            });
+        });
+
+        // Ajouter un certificat
+        document.getElementById('addCertificateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const certificate = {
+                numero: document.getElementById('certNumero').value,
+                nom: document.getElementById('certNom').value,
+                dateEmission: document.getElementById('certEmission').value,
+                dateExpiration: document.getElementById('certExpiration').value,
+                description: document.getElementById('certDescription').value
+            };
+
+            let certificates = JSON.parse(localStorage.getItem('certificates') || '[]');
+            
+            if (certificates.some(c => c.numero === certificate.numero)) {
+                alert('Un certificat avec ce numéro existe déjà !');
+                return;
+            }
+
+            certificates.push(certificate);
+            localStorage.setItem('certificates', JSON.stringify(certificates));
+            
+            alert('Certificat ajouté avec succès !');
+            this.reset();
+            loadManageCertificates();
+        });
+
+        function loadManageCertificates() {
+            const certificates = JSON.parse(localStorage.getItem('certificates') || '[]');
+            const container = document.getElementById('manageCertificatesList');
+            
+            if (certificates.length === 0) {
+                container.innerHTML = '<p class="empty-state">Aucun certificat ajouté.</p>';
+                return;
+            }
+
+            container.innerHTML = certificates.map(cert => `
+                <div class="certificate-card">
+                    <h3>${cert.nom}</h3>
+                    <p><strong>Numéro :</strong> ${cert.numero}</p>
+                    <p><strong>Émis le :</strong> ${cert.dateEmission || 'Non spécifié'}</p>
+                    <p><strong>Expire le :</strong> ${cert.dateExpiration || 'Non spécifié'}</p>
+                    <p><strong>Description :</strong> ${cert.description || 'Aucune'}</p>
+                    <button class="btn btn-danger" onclick="deleteCertificate('${cert.numero}')">Supprimer</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteCertificate(numero) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce certificat ?')) {
+                let certificates = JSON.parse(localStorage.getItem('certificates') || '[]');
+                certificates = certificates.filter(c => c.numero !== numero);
+                localStorage.setItem('certificates', JSON.stringify(certificates));
+                loadManageCertificates();
+            }
+        }
+
+        // Charger les certificats au chargement de la page
+        document.addEventListener('DOMContentLoaded', loadManageCertificates);
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionnaire de Certificats</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">Certificats</h1>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Recherche</a></li>
+                <li><a href="certificates.html">Mes Certificats</a></li>
+                <li><a href="admin.html">Administration</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="search-section">
+            <h2>Rechercher un Certificat</h2>
+            <form id="searchForm" class="search-form">
+                <div class="form-group">
+                    <label for="searchInput">Numéro de certificat ou nom :</label>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Entrez votre recherche"
+                        class="input"
+                    >
+                </div>
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </form>
+
+            <div id="results" class="results-container"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2024 Gestionnaire de Certificats. Tous droits réservés.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
