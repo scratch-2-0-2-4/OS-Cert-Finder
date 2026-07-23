@@ -14,7 +14,6 @@ except ImportError:
     print(f"    {cmd}\n")
     sys.exit(1)
 
-# Le reste de votre code
 data = input("Certificat ? >>> ")
 
 qr = qrcode.QRCode(version=1, box_size=10, border=4)
