@@ -34,4 +34,5 @@ def generer_code():
 
 code_genere = generer_code()
 print(code_genere)
+print("/n")
 afficher_qr(code_genere)
