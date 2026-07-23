@@ -1,7 +1,7 @@
 import re
 import hashlib
 
-MDP_LHF_vvm = "7a8f3f8c5e2b1d9c6a4e7f3b8c5a2d1e9f6c4b7a8d5e2f9c6b3a0d7e4f1c8b"
+MDP_LHF_vvm = "e8e7f8c8f8c8e8c8e8c8e8c8e8c8e8c8e8c8e8c8e8c8e8c8e8c8e8c8e8c8e8"
 
 pattern = r"^[A-Z]{3}-\d{3}-[a-z]{3}$"
 admin = input("Certificat >>> ")
