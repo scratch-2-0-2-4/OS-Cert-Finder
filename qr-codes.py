@@ -15,7 +15,7 @@ except ImportError:
     sys.exit(1)
 
 # Le reste de votre code
-data = "LHF-557-vvm"
+data = input("Certificat ? >>> ")
 
 qr = qrcode.QRCode(version=1, box_size=10, border=4)
 qr.add_data(data)
