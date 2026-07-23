@@ -53,10 +53,6 @@ if re.fullmatch(r"^[A-Z]{3}-\d{3}-[a-z]{3}$", Certificat):
             f"\033[31m ✖ Le certificat \033[1m{Certificat}\033[m \033[31m n'existe pas.\033[0m"
         )
 
-elif Certificat == "ADMIN":
-    print("ADMIN Mode")
-    ADMIN = input("Administration >>> ")
-
 elif Certificat == "Generate code":
     nouveau_code = generer_code()
     print(f"Code généré : {nouveau_code}\n")
